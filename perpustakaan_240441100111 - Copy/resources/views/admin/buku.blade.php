@@ -85,12 +85,32 @@
                 </tr>
             </thead>
 
+            @php
+                $daftarBuku = \App\Models\buku::with('kategori')->latest()->get();
+            @endphp
+
             <tbody id="tabel-buku" class="divide-y divide-slate-100">
-                <tr>
-                    <td colspan="7" class="px-4 py-6 text-center text-slate-500">
-                        Memuat data buku...
-                    </td>
-                </tr>
+                @forelse ($daftarBuku as $index => $buku)
+                    <tr>
+                        <td class="px-6 py-4">{{ $index + 1 }}</td>
+                        <td class="px-6 py-4">{{ $buku->kategori?->nama ?? '-' }}</td>
+
+                        <td class="px-6 py-4 font-semibold text-stone-800">
+                            {!! $buku->judul !!}
+                        </td>
+
+                        <td class="px-6 py-4">{{ $buku->penulis }}</td>
+                        <td class="px-6 py-4">{{ $buku->tahun_terbit }}</td>
+                        <td class="px-6 py-4">{{ $buku->stok }}</td>
+                        <td class="px-6 py-4">-</td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="7" class="px-6 py-6 text-center text-stone-500">
+                            Belum ada data buku.
+                        </td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>

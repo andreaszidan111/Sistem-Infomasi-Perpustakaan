@@ -6,6 +6,8 @@ use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SiswaDashboardController;
 use App\Http\Controllers\SiswaBukuController;
+use App\Http\Controllers\Api\BukuController as ApiBukuController;
+use App\Http\Controllers\Api\PeminjamanController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -15,6 +17,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // A2 SQL Injection 
+    Route::get('/buku-cari', [ApiBukuController::class, 'cariRentan'])
+    ->name('buku.cari.rentan');
+    // A3 CSRF
+    Route::get('/buku/{buku}/hapus', [ApiBukuController::class, 'destroy'])
+    ->name('buku.hapus.rentan');
+    // A4 IDOR
+    Route::get('/peminjaman/{id}', [PeminjamanController::class, 'showRentan'])
+    ->middleware('auth')
+    ->name('peminjaman.show.rentan');
 });
 
 require __DIR__.'/auth.php';

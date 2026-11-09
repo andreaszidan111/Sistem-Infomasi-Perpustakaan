@@ -15,13 +15,13 @@ Route::get('/buku/{id}', [BukuController::class, 'show'])
     ->name('api.buku.show');
 
 Route::post('/buku', [BukuController::class, 'store'])
-    ->middleware(['auth:sanctum', 'permission:kelola buku'])
+    ->middleware(['auth:sanctum', 'can:kelola-buku'])
     ->name('api.buku.store');
 Route::put('/buku/{buku}', [BukuController::class, 'update'])
-    ->middleware(['auth:sanctum', 'permission:kelola buku'])
+    ->middleware(['auth:sanctum', 'can:kelola-buku'])
     ->name('api.buku.update');
 Route::delete('/buku/{buku}', [BukuController::class, 'destroy'])
-    ->middleware(['auth:sanctum', 'permission:kelola buku'])
+    ->middleware(['auth:sanctum', 'can:kelola-buku'])
     ->name('api.buku.destroy');
 Route::get('/rekap/buku-per-kategori', [BukuController::class, 'bukuPerKategori'])
     ->middleware(['auth:sanctum', 'permission:lihat laporan perpustakaan'])
@@ -45,6 +45,7 @@ Route::delete('/pengguna/{id}', [UserController::class, 'destroy'])
 
 Route::apiResource('peminjaman', PeminjamanController::class)
     ->middleware(['auth:sanctum', 'permission:kelola peminjaman'])
+    ->except(['show'])
     ->names([
         'index' => 'api.peminjaman.index',
         'store' => 'api.peminjaman.store',
@@ -52,6 +53,7 @@ Route::apiResource('peminjaman', PeminjamanController::class)
         'update' => 'api.peminjaman.update',
         'destroy' => 'api.peminjaman.destroy',
     ]);
+
 Route::post('/siswa/peminjaman', [PeminjamanController::class, 'storeSiswa'])
     ->middleware(['auth:sanctum', 'permission:ajukan peminjaman'])
     ->name('api.siswa.peminjaman.store');

@@ -29,7 +29,7 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->name('admin.')->grou
     ->name('dashboard.data-peminjaman');
     Route::get('/buku', function () {
         return view('admin.buku');
-    })->middleware('permission:kelola buku')
+    })->middleware('can:kelola-buku')
     ->name('buku');
     Route::get('/pengguna', [UserController::class, 'index'])
     ->middleware('permission:kelola user')
@@ -63,7 +63,7 @@ Route::prefix('petugas')->middleware(['auth', 'role:petugas'])->name('petugas.')
     ->name('dashboard');    
     Route::get('/buku', function () {
         return view('petugas.buku');
-    })->middleware('permission:kelola buku')
+    })->middleware('can:kelola-buku')
     ->name('buku'); // Bisa memakai view buku yang sama
     Route::get('/peminjaman', function () {
         return view('petugas.peminjaman');

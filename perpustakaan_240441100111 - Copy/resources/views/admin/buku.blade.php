@@ -10,7 +10,7 @@
         <h1 class="text-xl font-bold text-[#0F172A] mt-0.5">Data Buku</h1>
     </div>
     <div class="flex items-center gap-2.5 flex-wrap">
-        @can('kelola buku')
+        @can('kelola-buku')
         <button type="button" id="tombol-tambah-buku" class="inline-flex items-center gap-1.5 bg-[#1E40AF] hover:bg-blue-800 text-white px-3.5 py-1.5 rounded-lg text-xs font-medium transition shadow-2xs">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
@@ -22,7 +22,7 @@
 </div>
 
 <!-- Form Tambah / Edit Buku -->
-@can('kelola buku')
+@can('kelola-buku')
 <div id="form-container" class="hidden bg-white rounded-xl border border-[#E2E8F0] shadow-2xs p-5 mt-4">
     <div class="flex items-center justify-between mb-5">
         <div>
@@ -113,5 +113,8 @@
         </div>
     </div>
 </div>
+<script>
+    window.bisaKelolaBuku = @json(auth()->user()->can('kelola-buku'));
+</script>
 @vite('resources/js/buku.js')
 @endsection

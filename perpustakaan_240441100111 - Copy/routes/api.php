@@ -53,7 +53,10 @@ Route::apiResource('peminjaman', PeminjamanController::class)
         'update' => 'api.peminjaman.update',
         'destroy' => 'api.peminjaman.destroy',
     ]);
-
+Route::get('/peminjaman/{id}', [PeminjamanController::class, 'show'])
+    ->middleware('auth:sanctum')
+    ->name('api.peminjaman.show');
+    
 Route::post('/siswa/peminjaman', [PeminjamanController::class, 'storeSiswa'])
     ->middleware(['auth:sanctum', 'permission:ajukan peminjaman'])
     ->name('api.siswa.peminjaman.store');

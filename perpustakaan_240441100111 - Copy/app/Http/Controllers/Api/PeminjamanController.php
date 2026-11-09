@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Gate;
 
 class PeminjamanController extends Controller
 {
@@ -84,6 +85,8 @@ class PeminjamanController extends Controller
     {
         $peminjaman = Peminjaman::with(['anggota', 'buku'])
             ->findOrFail($id);
+        
+            Gate::authorize('view', $peminjaman);
 
         return response()->json([
             'data' => $peminjaman,

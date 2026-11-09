@@ -378,14 +378,4 @@ class PeminjamanController extends Controller
 
         return response()->json($riwayat);
     }
-
-    public function showRentan($id)
-    {
-        $peminjaman = Peminjaman::with([
-            'anggota.user',
-            'buku'
-        ])->findOrFail($id);
-
-        return view('peminjaman.detail-rentan', compact('peminjaman'));
-    }
 }

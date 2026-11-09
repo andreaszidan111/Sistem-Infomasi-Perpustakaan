@@ -8,7 +8,6 @@ use App\Http\Requests\UpdateBukuRequest;
 use App\Models\Buku;
 use Illuminate\Http\Request;
 use App\Http\Resources\BukuResource;
-use Illuminate\Support\Facades\DB;
 
 class BukuController extends Controller
 {
@@ -128,16 +127,5 @@ class BukuController extends Controller
         return response()->json([
             'data' => $rekap
         ], 200);
-    }
-
-    public function cariRentan(Request $request)
-    {
-        $judul = $request->query('judul');
-
-        $hasil = DB::select(
-            "SELECT * FROM bukus WHERE judul = '$judul'"
-        );
-
-        return response()->json($hasil);
     }
 }
